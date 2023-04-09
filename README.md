@@ -27,3 +27,4 @@ Thanks to the plugin creators:
 - [p00f/nvim-ts-rainbow](https://github.com/p00f/nvim-ts-rainbow)
 - [lukas-reineke/indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)
 - [zbirenbaum/copilot.lua](https://github.com/zbirenbaum/copilot.lua)
+- [m4xshen/autoclose.nvim"](https://github.com/m4xshen/autoclose.nvim)
