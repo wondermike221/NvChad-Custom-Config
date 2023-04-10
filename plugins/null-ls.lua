@@ -26,9 +26,21 @@ local sources = {
 
   -- go
   b.formatting.gofmt,
+  b.formatting.goimports,
 }
 
 null_ls.setup {
   debug = true,
   sources = sources,
 }
+
+-- Add autocmds to run formatting on save for .go, .rs, and .py files
+vim.cmd([[
+  augroup null_ls_formatting
+    autocmd!
+    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+    autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
+    autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)
+  augroup END
+]])
+
