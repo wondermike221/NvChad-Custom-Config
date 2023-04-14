@@ -38,9 +38,9 @@ null_ls.setup {
 vim.cmd([[
   augroup null_ls_formatting
     autocmd!
-    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)
-    autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
-    autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)
+    autocmd BufWritePre *.go lua vim.lsp.buf.format((nil, 1000)
+    autocmd BufWritePre *.rs lua vim.lsp.buf.format((nil, 1000)
+    autocmd BufWritePre *.py lua vim.lsp.buf.format((nil, 1000)
   augroup END
 ]])
 
