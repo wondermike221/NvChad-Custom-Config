@@ -1,5 +1,3 @@
-local overrides = require "custom.plugins.overrides"
-
 vim.opt.termguicolors = true
 vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
@@ -11,47 +9,133 @@ vim.o.spell = true
 
 ---@type {[PluginName]: NvPluginConfig|false}
 local plugins = {
-  -- Override plugin definition options
-  ["neovim/nvim-lspconfig"] = {
+  {
+    "neovim/nvim-lspconfig",
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.plugins.lspconfig"
     end,
   },
 
-  ["nvim-treesitter/nvim-treesitter"] = {
-    override_options = overrides.treesitter,
+  -- Override plugin definition options
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "html",
+        "css",
+        "javascript",
+        "c",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "go",
+        "rust",
+      },
+      indent = {
+        enable = true,
+      },
+    },
   },
 
-  ["williamboman/mason.nvim"] = {
-    override_options = overrides.mason,
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        -- markdown
+        "marksman",
+        "misspell",
+        -- lua
+        "lua-language-server",
+        "stylua",
+        -- web dev
+        "css-lsp",
+        "html-lsp",
+        "typescript-language-server",
+        "deno",
+        -- docker
+        "dockerfile-language-server",
+        "docker-compose-language-service",
+        -- rust
+        "rust-analyzer",
+        "rustfmt",
+        -- go
+        "gopls",
+        "glint",
+        "go-debug-adapter",
+        "goimports",
+        "goimports-reviser",
+        "golangci-lint",
+        "golangci-lint-langserver",
+        "golines",
+        "gotests",
+        "gotestsum",
+        -- python
+        "pyright",
+        "flake8",
+        "black",
+        "mypy",
+        "pydocstyle",
+        "pylint",
+        "pyre",
+        "autoflake",
+        "autopep8",
+        "python-lsp-server",
+        -- yaml
+        "terraform-ls",
+        "tflint",
+        "yaml-language-server",
+        "yamlfmt",
+        "yamllint",
+        -- sql
+        "sqlfluff",
+        "sqls",
+      },
+    },
   },
 
-  ["nvim-tree/nvim-tree.lua"] = {
-    override_options = overrides.nvimtree,
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      git = {
+        enable = true,
+      },
+
+      renderer = {
+        highlight_git = true,
+        icons = {
+          show = {
+            git = true,
+          },
+        },
+      },
+    },
   },
 
-  ["max397574/better-escape.nvim"] = {
+  {
+    "max397574/better-escape.nvim",
     event = "InsertEnter",
     config = function()
       require("better_escape").setup()
     end,
   },
 
-  -- code formatting, linting etc
-  ["jose-elias-alvarez/null-ls.nvim"] = {
+  {
+    "jose-elias-alvarez/null-ls.nvim",
     after = "nvim-lspconfig",
     config = function()
       require "custom.plugins.null-ls"
     end,
   },
 
-  ["williamboman/nvim-lsp-installer"] = {
+  {
+    "williamboman/nvim-lsp-installer",
     event = "BufRead",
     config = function()
       local lsp_installer = require("nvim-lsp-installer")
-
-        lsp_installer.on_server_ready(function(server)
+      lsp_installer.on_server_ready(function(server)
         local opts = {}
         server:setup(opts)
         vim.cmd([[ do User LspAttachBuffers ]])
@@ -60,7 +144,8 @@ local plugins = {
   },
 
   -- Rainbow indent plugin
-  ["p00f/nvim-ts-rainbow"] = {
+  {
+    "p00f/nvim-ts-rainbow",
     event = "BufRead",
     config = function()
       require("nvim-treesitter.configs").setup {
@@ -74,7 +159,8 @@ local plugins = {
   },
 
   -- Rainbow brackets plugin
-  ["lukas-reineke/indent-blankline.nvim"] = {
+  {
+    "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     config = function()
       require("indent_blankline").setup {
@@ -111,9 +197,9 @@ local plugins = {
       }
     end,
   },
-
   -- Copilot
-  ["zbirenbaum/copilot.lua"] = {
+  {
+    "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = {"InsertEnter", "BufEnter", "BufRead"},
     config = function()
@@ -163,7 +249,10 @@ local plugins = {
       })
     end,
   },
-  ["m4xshen/autoclose.nvim"] = {
+
+  -- autoclose.nvim
+  {
+    "m4xshen/autoclose.nvim",
     event = "BufEnter",
     config = function()
       require("autoclose").setup()
