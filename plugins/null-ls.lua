@@ -1,3 +1,4 @@
+local M = {}
 local present, null_ls = pcall(require, "null-ls")
 
 if not present then
@@ -44,3 +45,4 @@ vim.cmd([[
   augroup END
 ]])
 
+return M
