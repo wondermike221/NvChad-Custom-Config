@@ -15,6 +15,30 @@ For windows:
 git clone https://github.com/NvChad/NvChad $HOME\AppData\Local\nvim --depth 1 && git clone https://github.com/PatrickKoss/NvChad-Custom-Config.git $HOME\AppData\Local\nvim\lua\custom --depth 1 && nvim
 ```
 
+### Note
+If you encounter the following error:
+```
+Error detected while processing /home/enderst/.config/nvim/init.lua:
+Invalid import spec. `import` should be a string: {
+```
+Fix it by modifying the plugin conf:   
+https://github.com/NvChad/NvChad/blob/v2.0/lua/plugins/init.lua   
+--> ~/.config/nvim/lua/plugins/init.lua   
+From:
+```
+if #config.plugins > 0 then
+  table.insert(default_plugins, { import = config.plugins })
+end
+```
+To:
+```
+if #config.plugins > 0 then
+  for _, plugin in ipairs(config.plugins) do
+    table.insert(default_plugins, plugin)
+  end
+end
+```
+
 ## Plugins
 Thanks to the plugin creators:
 - [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
