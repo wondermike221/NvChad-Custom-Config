@@ -200,6 +200,7 @@ local plugins = {
   -- Copilot
   {
     "zbirenbaum/copilot.lua",
+    enabled = false,
     cmd = "Copilot",
     event = {"InsertEnter", "BufEnter", "BufRead"},
     config = function()
@@ -272,12 +273,12 @@ local plugins = {
       "BufReadPre " .. vim.fn.expand "~" .. "/OneDrive/Documents/life/**.md",
       "BufNewFile " .. vim.fn.expand "~" .. "/OneDrive/Documents/life/**.md",
     },
-    
+
     dependencies = {
       -- Required.
       "nvim-lua/plenary.nvim",
     },
-    
+
     config = function()
       require "custom.plugins.obsidian"
     end,
